@@ -4,15 +4,12 @@
 Money manager for discord.js bots
 
 # Features!
-
-  - Economy
-  -- Fetch multiple users
-  -- Leaderboard ready auto sort dmm.getLeaderboard()
-  -- get formated RichEmbed Leaderboard for simple use 
-  -- Set user's money
-  -- Increase money of a user
-  -- Decrease money of a user
-
+  - Fetch multiple users
+  - Leaderboard ready auto sort dmm.getLeaderboard()
+  - get formated RichEmbed Leaderboard for simple use 
+  - Set user's money
+  - Increase money of a user
+  - Decrease money of a user
 
 to-do:
   - Suggest what to add next at github
@@ -145,4 +142,5 @@ const _DiscordMoneyMongoose = new DiscordMoneyMongoose('ModelName');
 | Returns a `RichEmbed` to be used in discord msg | RichEmbed |
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License 
+ - see the [LICENSE.md](LICENSE.md) file for details
