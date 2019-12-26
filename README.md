@@ -3,6 +3,9 @@
 
 Money manager for discord.js bots
 
+# Important!
+ This module requires discord.js and mongoose preinstalled
+
 # Features!
   - Fetch multiple users
   - Leaderboard ready auto sort dmm.getLeaderboard()

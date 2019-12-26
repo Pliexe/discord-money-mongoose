@@ -1,5 +1,5 @@
-const { GuildMember, Guild, RichEmbed } = require('discord.js');
-const { Schema, model, connection } = require('mongoose');
+const { GuildMember, Guild, RichEmbed } = require('../discord.js/src/index');
+const { Schema, model, connection } = require('../mongoose/index');
 const splitIntoPile = require('split-into-pile');
 
 function moneyModel(name = String)

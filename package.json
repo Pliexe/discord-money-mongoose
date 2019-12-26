@@ -1,11 +1,9 @@
 {
   "name": "discord-money-mongoose",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Money system for discordjs using mongoose",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "mongoose": "^5.8.1",
     "split-into-pile": "^1.1.0"
   },
   "devDependencies": {},
