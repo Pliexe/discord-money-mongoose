@@ -1,10 +1,10 @@
 const { GuildMember, Guild, RichEmbed } = require('../discord.js/src/index');
-const { Schema, model, connection } = require('../mongoose/index');
+const { Schema, model, connection, models } = require('../mongoose/index');
 const splitIntoPile = require('split-into-pile');
 
 function moneyModel(name = String)
 {
-    return model(name, Schema({
+    return models[name] ? model(name) : model(name, Schema({
         userID: String,
         guildID: String,
         money: Number
