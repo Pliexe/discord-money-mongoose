@@ -39,11 +39,6 @@ class MoneySystem
     {
         let data = await this.model.findOne({ userID: guildmember.id, guildID: guildmember.guild.id });
         if (!data) {
-            (new this.model({
-                userID: guildmember.id,
-                guildID: guildmember.guild.id,
-                money: 0
-            })).save().catch(err => console.log(err));
             return 0;
         } else
             return data.money;
@@ -151,7 +146,17 @@ class MoneySystem
         if (!members.every(m => !m.user.bot)) throw new Error('Bot may not have balance assigned to them.');
         if (!updateInMultipleGuilds && !members.every(m => m.guild.id === members[0].guild.id)) throw new Error('Every member must be in same guild, or set updateInMultipleGuilds parameter to true!');
 
-        this.model.updateMany({ guildID: updateInMultipleGuilds ? { $in: members.map(m => m.guild.id) } : members[0].guild.id, userID: { $in: members.map(m => m.id) } }, { money: money }).exec();
+        this.model.bulkWrite(members.map(m => {
+            return {
+                updateOne: {
+                    filter: { guildID: m.guild.id, userID: m.id },
+                    update: {
+                        $inc: { cash: amount }
+                    },
+                    upsert: true
+                }
+            }
+        }));
     }
 
     /**
