@@ -1,4 +1,4 @@
-const { GuildMember, Guild, RichEmbed } = require('../discord.js/src/index');
+const { GuildMember, Guild, MessageEmbed } = require('../discord.js/src/index');
 const { Schema, model, connection, models } = require('../mongoose/index');
 const splitIntoPile = require('split-into-pile');
 
@@ -105,6 +105,7 @@ class MoneySystem
      */
     setMoney(guildmember = GuildMember, money = Number)
     {
+        console.log(typeof guildmember)
         if (!(guildmember instanceof GuildMember)) throw new Error('First parameter may only be a `GuildMember`');
         if (isNaN(money)) throw new Error('Second parameter(money) must be a `number`');
         if (!(money instanceof Number)) money = parseFloat(money);
@@ -181,7 +182,7 @@ class MoneySystem
     async getLeaderboard(guild)
     {
         return (await this.model.find({ guildID: guild.id }).exec())
-            .map(m => ({ nickname: guild.members.get(m.userID).nickname, username: guild.members.get(m.userID).user.username, guildID: m.guildID, userID: m.userID, money: m.money }))
+            .map(m => ({ nickname: guild.members.cache.get(m.userID).nickname, username: guild.members.cache.get(m.userID).user.username, guildID: m.guildID, userID: m.userID, money: m.money }))
             .sort((a, b) => (a.money < b.money) ? 1 : ((b.money < a.money) ? -1 : 0));
     }
 
@@ -209,7 +210,7 @@ class MoneySystem
         for (var i = 0; i < data[options.page - 1].length; i++)
             str += `\n${(i + 1) + ((options.page * options.pageSize) - options.pageSize)}# - ${data[options.page - 1][i].username} | ${data[options.page - 1][i].money}$`;
 
-        let embed = new RichEmbed()
+        let embed = new MessageEmbed()
             .setTitle(options.title || 'Leaderboard')
             .setColor(options.colour || 0xb06305)
             .setDescription(str)

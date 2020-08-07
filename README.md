@@ -3,6 +3,9 @@
 
 Money manager for discord.js bots
 
+# Updates!
+  - 2.0.0, Updated to discord.js version v12 
+
 # Important!
  This module requires discord.js and mongoose preinstalled
 
