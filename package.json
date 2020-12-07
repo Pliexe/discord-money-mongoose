@@ -1,6 +1,6 @@
 {
     "name": "discord-money-mongoose",
-    "version": "3.0.0",
+    "version": "3.0.3",
     "description": "Money system for discordjs using mongoose",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

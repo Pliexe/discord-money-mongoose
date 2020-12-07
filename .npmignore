@@ -1,3 +1,8 @@
 # Typescript
 src
 tsconfig.json
+
+.git
+
+.gitignore
+.gitattributes

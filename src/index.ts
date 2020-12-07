@@ -1,7 +1,7 @@
 //@ts-ignore
 import { GuildMember, Guild, MessageEmbed, ColorResolvable } from '../../discord.js/src/index';
 // @ts-ignore
-import { connection, models, Schema, model, Document, Model, MongooseFilterQuery, SchemaDefinition } from '../../mongoose/index';
+import { connection, models, Schema, model, Document, Model, MongooseFilterQuery, SchemaDefinition, DocumentQuery, QueryHelpers } from '../../mongoose/index';
 
 interface IOptions {
     modelName?: string;
@@ -113,7 +113,7 @@ class MoneySystem {
 
     // async getMultipleCurrencies(member: GuildMember, fields: { field:  })
 
-    async getMoney(member: GuildMember, customField?: string) {
+    async getMoney(member: GuildMember, customField?: string): Promise<number> {
         if (!member) throw new Error(`Invalid syntax, first (member) parameter undefined`);
         if (!member.id) throw new Error(`Invalid first (member) parameter, Expected object to have member.id`);
         if (!member.guild) throw new Error(`Invalid first (member) parameter, Expected object to have member.guild`);
@@ -294,13 +294,14 @@ class MoneySystem {
         }
     }
 
-    seperateGuildIdFromUserId(GuildIdAndUserId: string) {
+    seperateGuildIdFromUserId(GuildIdAndUserId: string): { guildID: string, userID: string } {
         if (GuildIdAndUserId.length !== 36) throw new Error('GuildId + UserId always results in length of 18 and this string is not length of 18');
 
         return { guildID: GuildIdAndUserId.slice(0, 18), userID: GuildIdAndUserId.slice(18) }
     }
 
-    async getLeaderboard(guild: Guild, limit: number, options?: { customField?: string, useFetch?: boolean }) {
+    // @ts-ignore
+    async getLeaderboard(guild: Guild, limit: number, options?: { customField?: string, useFetch?: boolean }): Promise<{ money: number, member: GuildMember }[]> {
         if (!guild) throw new Error('Invalid syntax, first (guildID) parameter undefined');
 
         let goptions = options || {};
@@ -322,7 +323,7 @@ class MoneySystem {
         }
     }
 
-    async formatLeaderboard(guild: Guild, options?: { customField?: string, color?: ColorResolvable, pageSize?: number, page?: number, title?: string }) {
+    async formatLeaderboard(guild: Guild, options?: { customField?: string, color?: ColorResolvable, pageSize?: number, page?: number, title?: string }): Promise<MessageEmbed> {
         if (!guild) throw new Error('Invalid syntax, first (guildID) parameter undefined');
 
         options = options || {};
